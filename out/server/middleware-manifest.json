@@ -1,0 +1,35 @@
+{
+  "version": 3,
+  "middleware": {},
+  "functions": {
+    "/page": {
+      "files": [
+        "server/server-reference-manifest.js",
+        "server/app/page_client-reference-manifest.js",
+        "server/middleware-build-manifest.js",
+        "server/middleware-react-loadable-manifest.js",
+        "server/next-font-manifest.js",
+        "server/interception-route-rewrite-manifest.js",
+        "prerender-manifest.js",
+        "server/edge-runtime-webpack.js",
+        "server/app/page.js"
+      ],
+      "name": "app/page",
+      "page": "/page",
+      "matchers": [
+        {
+          "regexp": "^/$",
+          "originalSource": "/"
+        }
+      ],
+      "wasm": [],
+      "assets": [],
+      "environments": {
+        "previewModeId": "e1c6d4dcc1d78e5c3c246ad61e97e30d",
+        "previewModeSigningKey": "66d3f6fdab4aea0185741ac24ab060c8b4cc3fa19fce4612552156fe9aa0770f",
+        "previewModeEncryptionKey": "9d8f72b108b63dc8193abdb530247059d4ca9db4259755aac83fa69c2b0ac218"
+      }
+    }
+  },
+  "sortedMiddleware": []
+}

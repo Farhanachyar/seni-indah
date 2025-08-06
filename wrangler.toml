@@ -1,0 +1,30 @@
+name = "seni-indah-gypsum"
+compatibility_date = "2023-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Konfigurasi untuk Pages
+pages_build_output_dir = "out"
+
+# D1 Database bindings
+[[d1_databases]]
+binding = "DB"
+database_name = "seni-indah-deployment"
+database_id = "a2ca365d-23eb-4a5b-ac91-6ed5eb47be4d"
+
+# R2 Storage bindings
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "seni-indah-gypsum-storage"
+
+# KV Storage bindings
+[[kv_namespaces]]
+binding = "KV"
+id = "c99d8ebafb2244dbbe90ac39e57bd1a0"  # Ganti dengan ID dari wrangler kv:namespace create
+preview_id = "0d014e599b9445cd8c263de5008b9f15"  # Ganti dengan ID dari wrangler kv:namespace create --preview
+
+
+# Production environment
+[env.production]
+name = "seni-indah-gypsum"
+vars = { ENVIRONMENT = "production" }
+

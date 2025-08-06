@@ -1,0 +1,16 @@
+{
+  "app\\category\\[slug]\\page.tsx -> ../../../lib/categoryProductBuilder": {
+    "id": 181,
+    "files": [
+      "static/chunks/7077-5766cbdf2c5e759c.js",
+      "static/chunks/4158.eecff9bd0338506e.js"
+    ]
+  },
+  "app\\products\\page.tsx -> ../../lib/productBuilder": {
+    "id": 823,
+    "files": [
+      "static/chunks/7077-5766cbdf2c5e759c.js",
+      "static/chunks/977.9e7d21085e68e329.js"
+    ]
+  }
+}

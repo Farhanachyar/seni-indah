@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://seni-indah-gypsum.pages.dev/sitemap.xml
+
+# Disallow admin or private paths (if any)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Allow important pages
+Allow: /
+Allow: /produk
+Allow: /layanan
+Allow: /galeri
+Allow: /tentang
+Allow: /kontak
+
+# Crawl-delay (optional)
+Crawl-delay: 1
