@@ -1,54 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
+  // Remove output export - it causes issues with dynamic routes
+  // output: 'export',
+  output: 'standalone',
+  // Experimental features
 
-  trailingSlash: true,
-
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
-
+  
+  // Image optimization disabled for Cloudflare compatibility
   images: {
-    domains: [
-      'your-r2-domain.com',
-      'via.placeholder.com',
-      '127.0.0.1',
-      'localhost',
-    ],
+    unoptimized: true,
   },
-
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          { key: 'X-Frame-Options', value: 'DENY' },
-          { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-          { key: 'X-XSS-Protection', value: '1; mode=block' },
-        ],
-      },
-      {
-        source: '/favicon.ico',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
-  },
-
+  
+  // Environment variables
   env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },
 
-  webpack: (config, { dev, isServer }) => {
-    if (!dev && !isServer) {
+  // Webpack configuration for Cloudflare compatibility
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -57,12 +28,34 @@ const nextConfig = {
         crypto: false,
       };
     }
+    
+    // Add polyfill for 'self' in server environment
+    config.resolve.alias = {
+      ...config.resolve.alias,
+    };
+    
     return config;
   },
 
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+  // Skip build-time optimizations that might cause issues
+  optimizeFonts: false,
+  
+  // Static generation config
+  generateStaticParams: false,
+  
+  // Headers for CORS and security
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, DELETE, OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
+        ],
+      },
+    ];
   },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
